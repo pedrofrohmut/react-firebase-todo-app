@@ -1,0 +1,49 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  width: 100%;
+  min-height: 100vh;
+  background: linear-gradient(-45deg, rgba(0, 0, 0, 0.3), rgba(0, 40, 105, 0.8)),
+    url("./static/img/2.jpg");
+  background-attachment: fixed;
+  background-size: cover;
+}
+
+.notes-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.notes-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1em;
+  color: #f4b350;
+  font-family: "Permanent Marker", cursive;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.notes-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 25px 0;
+}
+
+.notes-footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 15px 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

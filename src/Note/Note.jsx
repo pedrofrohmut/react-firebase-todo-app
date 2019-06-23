@@ -13,9 +13,9 @@ function Note({ note }) {
 
 Note.propTypes = {
   note: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    content: PropTypes.string.isRequired,
-  }).isRequired,
+    id: PropTypes.string.isRequired,
+    content: PropTypes.string.isRequired
+  }).isRequired
 }
 
 export default Note

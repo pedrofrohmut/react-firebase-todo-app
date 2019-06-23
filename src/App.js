@@ -1,20 +1,40 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import "./App.css"
+
+import firebase from "firebase/app"
+import "firebase/firestore"
+import { firebaseConfig } from "./config/config"
+
 import Note from "./Note/Note"
 import NoteForm from "./NoteForm/NoteForm"
 
-const INITIAL_NOTES = [
-  { id: 1, content: "Note content One" },
-  { id: 2, content: "Note content Two" },
-  { id: 3, content: "Note content Three" },
-  { id: 4, content: "Note content Four" },
-]
+// Initialize Cloud Firestore.
+firebase.initializeApp(firebaseConfig)
+const db = firebase.firestore()
 
 function App() {
-  // eslint-disable-next-line no-unused-vars
-  const [notes, setNotes] = useState(INITIAL_NOTES)
+  const [notes, setNotes] = useState([])
 
-  const handleAddNote = newNote => setNotes([...notes, newNote])
+  const handleAddNote = content => {
+    ;(async () => {
+      db.collection("notes").add({ content })
+    })()
+  }
+
+  const queryNotes = async () => {
+    const querySnapshot = await db.collection("notes").get()
+
+    const newNotes = querySnapshot.docs.reduce((acc, doc) => {
+      const newNote = { id: doc.id, content: doc.data().content }
+      return acc.concat(newNote)
+    }, [])
+
+    setNotes(newNotes)
+  }
+
+  useEffect(() => {
+    queryNotes()
+  }, [])
 
   return (
     <div className="App">
@@ -31,7 +51,9 @@ function App() {
               ))}
             </>
           ) : (
-            <p>No Notes to display at the moment.</p>
+            <Note
+              note={{ id: "", content: "No notes to display at the moment." }}
+            />
           )}
         </main>
 

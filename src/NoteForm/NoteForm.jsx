@@ -1,26 +1,31 @@
-import React from "react"
+import React, { useContext } from "react"
 import "./NoteForm.css"
-import PropTypes from "prop-types"
 
-function NoteForm({ onAddNote }) {
+import "firebase/firestore"
+import { Context } from "../context"
+
+function NoteForm() {
+  const firebase = useContext(Context)
+
   let contentInput = React.createRef()
 
-  // const handleSubmit = e => {
-  //   e.preventDefault()
-  //   onAddNote({ id: Math.random(), content: contentInput.value })
-  //   contentInput.value = ""
-  // }
+  const addNote = content => {
+    console.log("Add Note:", content)
+    ;(async () => {
+      const db = firebase.firestore()
+      db.collection("notes").add({ content })
+    })()
+  }
+
+  const handleSubmit = e => {
+    e.preventDefault()
+    addNote(contentInput.value)
+    contentInput.value = ""
+  }
 
   return (
     <div className="NoteForm">
-      <form
-        onSubmit={e => {
-          e.preventDefault()
-          const newNote = { id: Math.random, content: contentInput.value }
-          onAddNote(newNote)
-          contentInput.value = ""
-        }}
-      >
+      <form onSubmit={handleSubmit}>
         <input
           type="text"
           ref={node => {
@@ -33,10 +38,6 @@ function NoteForm({ onAddNote }) {
       </form>
     </div>
   )
-}
-
-NoteForm.propTypes = {
-  onAddNote: PropTypes.func.isRequired
 }
 
 export default NoteForm

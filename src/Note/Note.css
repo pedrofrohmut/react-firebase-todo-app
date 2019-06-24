@@ -1,4 +1,5 @@
 .Note {
+  position: realtive;
   width: 600px;
   margin-bottom: 20px;
   padding: 13px 20px;
@@ -33,21 +34,19 @@
   animation-duration: 0.1s;
 }
 
-/* .note-content {
-  float: left;
-  padding-right: 70px;
-  padding-bottom: 10px;
-  display: block;
-} */
-
-.close-btn {
-  color: #aa9;
-  font-weight: bold;
+.buttons {
   float: right;
-  cursor: pointer;
-  font-size: 1.3em;
 }
 
-.close-btn:hover {
+.delete-btn,
+.edit-btn {
+  color: #999;
+  font-weight: 300;
+  cursor: pointer;
+  font-size: 0.7em;
+  padding: 0 15px;
+}
+
+.delete-btn:hover {
   color: #ac2500;
 }

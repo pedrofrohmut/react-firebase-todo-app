@@ -1,4 +1,5 @@
 import React from "react"
+import PropTypes from "prop-types"
 import firebase from "firebase/app"
 import { firebaseConfig } from "./config/config"
 
@@ -7,10 +8,12 @@ firebase.initializeApp(firebaseConfig)
 
 const Context = React.createContext()
 
-const ContextProvider = props => (
-  <Context.Provider value={firebase}>{props.children}</Context.Provider>
+const ContextProvider = ({ children }) => (
+  <Context.Provider value={firebase}>{children}</Context.Provider>
 )
 
-const ContextConsumer = Context.Consumer
+ContextProvider.propTypes = {
+  children: PropTypes.node.isRequired
+}
 
 export { Context, ContextProvider }

@@ -1,25 +1,44 @@
-import React from "react"
+import React, { useState } from "react"
 import "./App.css"
 
-import NoteList from "./NoteList/NoteList"
-import NoteForm from "./NoteForm/NoteForm"
+import NoteList from "./components/NoteList/NoteList"
+import NoteForm from "./components/NoteForm/NoteForm"
 
-const App = () => (
-  <div className="App">
-    <div className="notes-wrapper">
-      <header className="notes-header">
-        <h1>React & Firebase To-Do List</h1>
-      </header>
+const App = () => {
+  const [currentNote, setCurrentNote] = useState({
+    id: "",
+    content: ""
+  })
 
-      <main className="notes-body">
-        <NoteList />
-      </main>
+  const [editNote, setEditNote] = useState("")
 
-      <footer className="notes-footer">
-        <NoteForm />
-      </footer>
+  const handleEdit = note => {
+    setCurrentNote(note)
+    setEditNote(note.content)
+  }
+
+  return (
+    <div className="App">
+      <div className="notes-wrapper">
+        <header className="notes-header">
+          <h1>React & Firebase To-Do List</h1>
+        </header>
+
+        <main className="notes-body">
+          <NoteList onEdit={handleEdit} />
+        </main>
+
+        <footer className="notes-footer">
+          <NoteForm
+            editNote={editNote}
+            setEditNote={setEditNote}
+            currentNote={currentNote}
+            setCurrentNote={setCurrentNote}
+          />
+        </footer>
+      </div>
     </div>
-  </div>
-)
+  )
+}
 
 export default App
